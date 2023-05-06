@@ -1,0 +1,4 @@
+Flask==2.3.2
+Flask-OAuth==0.12
+python_dotenv==1.0.0
+pangea_sdk==1.8.0
