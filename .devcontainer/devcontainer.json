@@ -19,7 +19,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "pip3 install --user -r admin-site/requirements.txt",
+	"postCreateCommand": "cd fluffy-telegram-admin && npm install next@latest react@latest react-dom@latest",
 	"features": {
 		"ghcr.io/devcontainers/features/node:1": {}
 	},
