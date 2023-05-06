@@ -3,6 +3,7 @@ import { AuthProvider } from "@pangeacyber/react-auth";
 import AppBar from "../components/AppBar";
 
 import "./globals.css";
+import 'bootstrap/dist/css/bootstrap.css'
 
 export default function RootLayout({
   children,

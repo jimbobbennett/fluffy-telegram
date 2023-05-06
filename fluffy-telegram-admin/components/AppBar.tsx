@@ -19,13 +19,10 @@ const AppBar = () => {
     <header>
       <div className="nav">
         <Link href={"/"}>Home</Link>
-        {authenticated && (
-          <Link href={"/user"}>Profile ({user.profile.first_name})</Link>
-        )}
       </div>
       <div className="actions">
         {authenticated && (
-          <button className="header-action" onClick={() => logout(false)}>
+          <button className="header-action" onClick={() => logout()}>
             Sign Out
           </button>
         )}

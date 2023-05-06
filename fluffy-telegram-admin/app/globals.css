@@ -44,7 +44,7 @@
   --card-border-rgb: 131, 134, 135;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
@@ -87,7 +87,6 @@ html,
 body {
   max-width: 100vw;
   max-height: 100vh;
-  overflow: hidden;
   font-family: var(--font-body);
 }
 
@@ -140,8 +139,8 @@ button {
   line-height: 1.4em;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   html {
-    color-scheme: dark;
+    color-scheme: light;
   }
 }
