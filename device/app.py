@@ -64,6 +64,9 @@ def process_queue_messages():
     '''
     # Block waiting for messages
     messages = queue_client.receive_messages()
+
+    # Track if we process any messages
+    processed_messages = False
     
     # Loop through each message
     for message in messages:
@@ -79,11 +82,15 @@ def process_queue_messages():
             with open(f'{current_path}/images/{file_name}', "wb") as f:
                 data = blob_client.download_blob()
                 data.readinto(f)
+            
+            # We processed a message
+            processed_messages = True
         except:
             pass
 
         # After processing, delete the message from the queue
-        queue_client.delete_message(message)
+        if processed_messages:
+            queue_client.delete_message(message)
 
     # restart the slideshow
     restart_feh()
