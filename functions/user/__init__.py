@@ -1,37 +1,31 @@
 import logging
-import os
 
 import azure.functions as func
-from azure.storage.blob import BlobServiceClient
 
-connection_string = os.environ['BLOB_STORAGE_CONNECTION_STRING']
+import shared.storage as storage
 
-blob_service_client = BlobServiceClient.from_connection_string(connection_string)
-container_name = "users"
-container_client = blob_service_client.get_container_client(container_name)
-
-# Get all blobs in the container
-blobs = container_client.list_blobs()
-
-# Add them to a dictionary
-users = {}
-for blob in blobs:
-    # Load the blob content
-    blob_client = container_client.get_blob_client(blob.name)
-    blob_content = blob_client.download_blob().readall()
-    user_name = blob.name.replace('.json', '')
-
-    logging.info(f'Loading user user_name')
-
-    users[user_name] = blob_content
+# Get all the users
+users = storage.get_all_users()
 
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
+    '''
+    Returns the details for a user
+
+    :param req: The HTTP request
+    :type req: func.HttpRequest
+    :return: The HTTP response
+    :rtype: func.HttpResponse
+    '''
+    # Get the user ID from the route parameters
     user_id = req.route_params.get('user_id')
 
     logging.info(f'Getting details for user {user_id}')
 
+    # Check if the user exists
     if user_id in users:
+        # Return the user details
         return func.HttpResponse(users[user_id], mimetype='application/json')
 
+    # Return a 404 if the user doesn't exist
     return func.HttpResponse(f'User {user_id} not found', status_code=404)

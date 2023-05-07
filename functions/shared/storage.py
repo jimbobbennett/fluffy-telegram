@@ -1,5 +1,7 @@
 from io import BytesIO
+import logging
 import os
+from typing import Dict
 import requests
 import uuid
 
@@ -10,14 +12,41 @@ from PIL import Image
 
 import shared.imageutils as imageutils
 
-connection_string = os.environ['BLOB_STORAGE_CONNECTION_STRING']
+connection_string = os.environ['STORAGE_CONNECTION_STRING']
 
 blob_service_client = BlobServiceClient.from_connection_string(connection_string)
 container_name = "images"
 container_client = blob_service_client.get_container_client(container_name)
 
+user_container_name = "users"
+user_container_client = blob_service_client.get_container_client(user_container_name)
+
 queue_service_client = QueueServiceClient.from_connection_string(connection_string)
 
+def get_all_users() -> Dict:
+    '''
+    Returns a dictionary of all users
+
+    :return: A dictionary of all users
+    :rtype: Dict
+    '''
+    # Get all blobs in the container
+    blobs = user_container_client.list_blobs()
+
+    # Add them to a dictionary
+    users = {}
+    for blob in blobs:
+        # Load the blob content
+        blob_client = user_container_client.get_blob_client(blob.name)
+        blob_content = blob_client.download_blob().readall()
+        user_name = blob.name.replace('.json', '')
+
+        logging.info(f'Loading user user_name')
+
+        users[user_name] = blob_content
+    
+    # return the users
+    return users
 
 def get_all_images(device: str) -> str:
     '''

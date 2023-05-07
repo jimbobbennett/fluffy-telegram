@@ -3,7 +3,7 @@
   "Values": {
     "FUNCTIONS_WORKER_RUNTIME": "python",
     "AzureWebJobsStorage": "",
-    "BLOB_STORAGE_CONNECTION_STRING": "",
+    "STORAGE_CONNECTION_STRING": "",
     "PANGEA_DOMAIN": "",
     "PANGEA_TOKEN": ""
   }
