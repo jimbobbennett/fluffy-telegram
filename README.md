@@ -149,3 +149,13 @@ The Codespace will need some URL configuration:
     ```
 
 ## Use the app
+
+Once the app is running, open it in your browser.
+
+- Sign in using the **Sign in** button. You will need to create an account if you don't have one. Make sure this matches a user account in the users container.
+- Upload images using the image URL box. At the moment only uploading from a URL is supported.
+- Once the image is uploaded, the screen will refresh to show the image, and it will appear on the device.
+
+    ![The app with 2 images showing](./img/app-with-2-images.png)
+
+- You can test the malicious URL detection by uploading from `http://113.235.101.11:54384`, the exmaple malicious URL from the Pangea documentation.
