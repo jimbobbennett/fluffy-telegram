@@ -73,7 +73,9 @@ export default function Device() {
             <form>
               <div className="form-group">
                 <label htmlFor="exampleFormControlInput1">Image URL</label>
-                <input type="text" className="form-control" id="imageUrl" placeholder=""/>
+                <br/>
+                <input type="text" className="form-control" id="imageUrl" placeholder="" />
+                <br/>
                 <button type="button" className="btn btn-primary" onClick={
                   (e) => {
                     // get the image url
@@ -87,7 +89,19 @@ export default function Device() {
 
                     // post to the URL
                     fetch(url, { method: 'POST' })
-                      .then((res) => imageUrlControl.value = "")
+                      .then((res) => {
+                        if (res.ok) {
+                          imageUrlControl.value = ""
+                        }
+                        else {
+                          if (res.status == 403) {
+                            alert("Error uploading image - URL is malicious")
+                          }
+                          else {
+                            alert("Error uploading image")
+                          }
+                        }
+                      })
                       .then(() => location.reload());
                   }
                 }>Submit</button>
