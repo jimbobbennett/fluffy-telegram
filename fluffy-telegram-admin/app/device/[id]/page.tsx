@@ -23,7 +23,7 @@ export default function Device() {
     const url = `../api/func/image/${deviceId}`;
 
     // Load the images for the device
-    const [data, setData] = useState(null);
+    var [data, setData] = useState(null);
     const [isLoading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -48,6 +48,13 @@ export default function Device() {
 
     // If we have no data, display a message
     if (!data) return <p>No profile data</p>;
+
+    // console.log(data);
+
+    // if (!Array.isArray(data))
+    // {
+    //   data = [data];
+    // }
 
     // Build the list of images
     const images_list = data.map((image: string) => {
