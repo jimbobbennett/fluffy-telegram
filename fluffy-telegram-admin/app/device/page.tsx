@@ -1,17 +1,14 @@
 "use client";
 
 import { useAuth } from "@pangeacyber/react-auth";
-import { usePathname, useSearchParams } from 'next/navigation';
 import { redirect } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
 export default function Device() {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
   const { authenticated, user } = useAuth();
 
   if (!authenticated) {
-    // redirect to home
+    // If we are not authenticated, redirect back to home
     redirect('/')
   }
   else {
@@ -23,9 +20,10 @@ export default function Device() {
     // build the url
     const url = `api/func/user/${userId}`;
 
+    // Load the device for the user
     const [data, setData] = useState(null);
     const [isLoading, setLoading] = useState(false);
-  
+
     useEffect(() => {
       setLoading(true);
       fetch(url)
@@ -35,10 +33,21 @@ export default function Device() {
           setLoading(false);
         });
     }, []);
-  
-    if (isLoading) return <p>Loading...</p>;
+
+    // If we are loading, display a loading spinner
+    if (isLoading) return (
+      <div className="d-flex justify-content-center align-content-center">
+        <div>
+          <div className="spinner-border text-primary" role="status">
+          </div>
+        </div>
+      </div>
+    );
+
+    // If we have no data, display a message
     if (!data) return <p>No profile data</p>;
 
+    // Redirect to the device page for the user
     redirect(`./device/${data.device}`)
   }
 }

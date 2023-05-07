@@ -1,33 +1,27 @@
 import { useAuth } from "@pangeacyber/react-auth";
-
-import Link from "next/link";
 import React from "react";
 
 const AppBar = () => {
+  // Get the authentication state, and login and logout functions from Pangea
   const {
     authenticated,
-    loading,
-    error,
-    user,
-    client,
     login,
-    logout,
-    getToken,
+    logout
   } = useAuth();
 
   return (
     <header>
       <div className="nav">
-        <Link href={"/"}>Home</Link>
+        <h1>Fluffy Telegram</h1>
       </div>
       <div className="actions">
         {authenticated && (
-          <button className="header-action" onClick={() => logout()}>
+          <button type="button" className="btn btn-primary" onClick={() => logout()}>
             Sign Out
           </button>
         )}
         {!authenticated && (
-          <button className="header-action" onClick={() => login()}>
+          <button type="button" className="btn btn-primary" onClick={() => login()}>
             Sign In
           </button>
         )}

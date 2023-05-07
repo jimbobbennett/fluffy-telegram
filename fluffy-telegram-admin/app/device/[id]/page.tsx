@@ -9,14 +9,8 @@ export default function Device() {
   const pathname = usePathname();
   const { authenticated } = useAuth();
 
-
-  // Page needs:
-  // A list of images
-  // A way to upload an image
-  // A way to set a URL for a new image
-
   if (!authenticated) {
-    // redirect to home
+    // If we are not authenticated, redirect to home
     redirect('/')
   }
   else {
@@ -27,8 +21,8 @@ export default function Device() {
 
     // build the url
     const url = `../api/func/image/${deviceId}`;
-    // return (<p>{url}</p>)
 
+    // Load the images for the device
     const [data, setData] = useState(null);
     const [isLoading, setLoading] = useState(false);
 
@@ -42,10 +36,21 @@ export default function Device() {
         });
     }, []);
 
-    if (isLoading) return <p>Loading...</p>;
+    // If we are loading, display a loading spinner
+    if (isLoading) return (
+      <div className="d-flex justify-content-center align-content-center">
+        <div>
+          <div className="spinner-border text-primary" role="status">
+          </div>
+        </div>
+      </div>
+    );
+
+    // If we have no data, display a message
     if (!data) return <p>No profile data</p>;
 
-    const images_list = data.map((image) => {
+    // Build the list of images
+    const images_list = data.map((image: string) => {
       var i = {
         url: `../api/func/image/${deviceId}/?image=${image}`,
         id: image
@@ -53,6 +58,7 @@ export default function Device() {
       return i;
     });
 
+    // Render the page with images laid out in a grid, as well as a URL upload button
     return (
       <div>
         <div className="container">
@@ -73,9 +79,9 @@ export default function Device() {
             <form>
               <div className="form-group">
                 <label htmlFor="exampleFormControlInput1">Image URL</label>
-                <br/>
+                <br />
                 <input type="text" className="form-control" id="imageUrl" placeholder="" />
-                <br/>
+                <br />
                 <button type="button" className="btn btn-primary" onClick={
                   (e) => {
                     // get the image url
@@ -91,18 +97,24 @@ export default function Device() {
                     fetch(url, { method: 'POST' })
                       .then((res) => {
                         if (res.ok) {
+                          // if the URL is valid, clear the input
                           imageUrlControl.value = ""
                         }
                         else {
                           if (res.status == 403) {
+                            // if the URL is malicious, display an error
                             alert("Error uploading image - URL is malicious")
                           }
                           else {
+                            // if the URL is invalid, display an error
                             alert("Error uploading image")
                           }
                         }
                       })
-                      .then(() => location.reload());
+                      .then(() => {
+                        // reload the page to show the new image
+                        location.reload()
+                      });
                   }
                 }>Submit</button>
               </div>

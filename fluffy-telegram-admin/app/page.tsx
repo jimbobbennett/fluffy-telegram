@@ -5,10 +5,11 @@ import styles from "./page.module.css";
 import { redirect } from 'next/navigation';
 
 export default function Home() {
+  // Get the authentication state from Pangea
   const { authenticated } = useAuth();
 
   if (!authenticated) {
-    // redirect to homw
+    // If we are not authenticated, show the login page
     return (<div className={styles.card}>
       <h2>
        Please sign in
