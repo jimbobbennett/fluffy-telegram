@@ -3,10 +3,17 @@
 {
 	"name": "Fluffy telegram",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/python:0-3.11-bullseye",
+	
+	"dockerFile": "Dockerfile",
+	"forwardPorts": [ 7071, 3000 ],
+
 	"customizations": {
 		"vscode": {
 			"extensions": [
+				"ms-azuretools.vscode-azurefunctions",
+				"ms-azuretools.vscode-docker",
+				"ms-python.python",
+				"rangav.vscode-thunder-client",
 				"GitHub.copilot"
 			]
 		}
@@ -19,9 +26,17 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "cd fluffy-telegram-admin && npm install next@latest react@latest react-dom@latest",
+	"postCreateCommand": "cd fluffy-telegram-admin && npm install next@latest react@latest react-dom@latest && cd ../functions && pip install -r requirements.txt",
 	"features": {
 		"ghcr.io/devcontainers/features/node:1": {}
+	},
+	"portsAttributes": {
+		"3000": {
+			"label": "admin-app"
+		},
+		"7071": {
+			"label": "function-app"
+		}
 	},
 
 	// Configure tool-specific properties.
