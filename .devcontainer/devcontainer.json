@@ -26,9 +26,17 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "cd fluffy-telegram-admin && npm install next@latest react@latest react-dom@latest",
+	"postCreateCommand": "cd fluffy-telegram-admin && npm install next@latest react@latest react-dom@latest && cd ../functions && pip install -r requirements.txt",
 	"features": {
 		"ghcr.io/devcontainers/features/node:1": {}
+	},
+	"portsAttributes": {
+		"3000": {
+			"label": "admin-app"
+		},
+		"7071": {
+			"label": "function-app"
+		}
 	},
 
 	// Configure tool-specific properties.
