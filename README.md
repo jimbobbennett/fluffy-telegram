@@ -2,6 +2,8 @@
 
 Remote controlled picture frame using a Raspberry Pi. This is designed as a multi-user system, where one user can upload images to one device. This is a sample app showing how to use the [Pangea](https://pangea.cloud) services with Azure.
 
+![The device showing 2 differetn star wars pictures](./img/device.gif)
+
 The device code is written in Python. The server side API is written in Python using Azure functions, and the client app to manage images is written in Typescript using NextJS.
 
 > This is a demo app, and is still under development
