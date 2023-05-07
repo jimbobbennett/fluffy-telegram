@@ -27,7 +27,9 @@ def get(req: func.HttpRequest, device: str) -> func.HttpResponse:
         logging.info(f'Image: {image}')
         return func.HttpResponse(body=storage.get_image(device, image).getvalue(), mimetype='image/jpeg')
     else:
-        return func.HttpResponse(body=storage.get_all_images(device), mimetype='application/json')
+        response_body = storage.get_all_images(device)
+        logging.info(f'Response: {response_body}')
+        return func.HttpResponse(body=response_body, mimetype='application/json')
 
 
 def post(req: func.HttpRequest, device: str) -> func.HttpResponse:

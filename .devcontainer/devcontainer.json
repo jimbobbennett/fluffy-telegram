@@ -13,7 +13,6 @@
 				"ms-azuretools.vscode-azurefunctions",
 				"ms-azuretools.vscode-docker",
 				"ms-python.python",
-				"rangav.vscode-thunder-client",
 				"GitHub.copilot"
 			]
 		}
