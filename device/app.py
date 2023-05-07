@@ -89,11 +89,11 @@ def process_queue_messages():
             pass
 
         # After processing, delete the message from the queue
-        if processed_messages:
-            queue_client.delete_message(message)
+        queue_client.delete_message(message)
 
-    # restart the slideshow
-    restart_feh()
+    # restart the slideshow if we processed any messages
+    if processed_messages:
+        restart_feh()
 
 # Start the slideshow
 restart_feh()
