@@ -26,7 +26,7 @@ def is_url_malicious(image_url: str) -> bool:
     reputation = __url_intel.reputation(image_url)
     logging.info(f'URL reputation: {reputation}')
 
-    return reputation.result.data.score > 50
+    return reputation.result.data.score > 0
 
 def is_file_malicious(file: bytes) -> bool: 
     '''
@@ -41,4 +41,4 @@ def is_file_malicious(file: bytes) -> bool:
     reputation = __file_intel.hashReputation(hash=hash, hash_type="sha256")
     logging.info(f'File reputation: {reputation}')
 
-    return reputation.result.data.score > 50
+    return reputation.result.data.score > 0
